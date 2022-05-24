@@ -27,6 +27,7 @@
               "src/assets"
             ],
             "styles": [
+              "../angular-sample/node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ],
             "scripts": []
