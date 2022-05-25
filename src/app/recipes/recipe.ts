@@ -1,8 +1,10 @@
+import {Ingredient} from "../shared/ingredient.model";
+
 export class Recipe {
 
   constructor(private _name: string
               , private _description: string
-              , private _imagePath: string) {
+              , private _imagePath: string, private _ingredients: Ingredient[]) {
   }
 
 
@@ -16,5 +18,10 @@ export class Recipe {
 
   get imagePath(): string {
     return this._imagePath;
+  }
+
+
+  get ingredients(): Ingredient[] {
+    return this._ingredients;
   }
 }
