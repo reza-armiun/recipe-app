@@ -8,6 +8,7 @@ export class ShoppingListService {
     new Ingredient('Tomatoes', 10),
   ];
    addIngredientEvent = new Subject<void>();
+   selectIngredientEvent = new Subject<number>();
 
 
   getIngredients() {
@@ -24,5 +25,20 @@ export class ShoppingListService {
     this.addIngredientEvent.next();
   }
 
+  getIngredient(index: number){
+     return this.ingredients[index];
+  }
 
+  updateIngredient(index: number, ingredient: Ingredient) {
+    this.ingredients[index] = ingredient;
+    console.log('new ingredients ', this.ingredients);
+    this.addIngredientEvent.next();
+  }
+
+
+  deleteItem(selectedIndex: number) {
+    console.log('deleting item ', selectedIndex);
+    this.ingredients.splice(selectedIndex, 1);
+    this.addIngredientEvent.next();
+  }
 }

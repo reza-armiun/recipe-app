@@ -1,6 +1,7 @@
 import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {Ingredient} from "../../shared/ingredient.model";
 import {ShoppingListService} from "../../services/shopping-list.service";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-shopping-edit',
@@ -8,18 +9,45 @@ import {ShoppingListService} from "../../services/shopping-list.service";
   styleUrls: ['./shopping-edit.component.css']
 })
 export class ShoppingEditComponent implements OnInit {
-  @ViewChild('inputName') inputNameEl: ElementRef | undefined ;
-  @ViewChild('inputAmount') inputAmountEl: ElementRef | undefined;
+  @ViewChild('f')form: NgForm | undefined;
+  editMode = false;
+  selectedIndex: number | undefined;
   constructor(private shoppingListService: ShoppingListService) { }
 
   ngOnInit(): void {
+    this.shoppingListService.selectIngredientEvent.subscribe(index => {
+      this.selectedIndex = +index;
+      this.editMode = true;
+      const ingredient = this.shoppingListService.getIngredient(index);
+      this.form?.setValue({ name: ingredient.name , amount: ingredient.amount});
+    })
   }
 
-  onAddIngredient(event: any) {
-    event.preventDefault();
-    const name = this.inputNameEl?.nativeElement.value;
-    const amount = this.inputAmountEl?.nativeElement.value;
-    const ingredient = new Ingredient(name, amount);
-    this.shoppingListService.addIngredient(ingredient);
+  onSubmit() {
+    const value  =this.form?.value;
+    const ingredient = new Ingredient(value.name, value.amount);
+    if(this.editMode) {
+      if(this.selectedIndex !== undefined ) {
+        this.updateIngredient(this.selectedIndex, ingredient);
+      }
+    }
+    else this.shoppingListService.addIngredient(ingredient);
+    this.onClear();
+  }
+
+  onClear() {
+    this.editMode = false;
+    this.form?.reset();
+
+  }
+
+  updateIngredient( index:number, ingredient: Ingredient ) {
+    this.shoppingListService.updateIngredient(index, ingredient);
+  }
+
+  onDelete() {
+    if(this.selectedIndex === undefined) return;
+    this.shoppingListService.deleteItem(this.selectedIndex);
+    this.onClear();
   }
 }
