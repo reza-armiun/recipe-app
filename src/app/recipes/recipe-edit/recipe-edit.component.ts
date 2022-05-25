@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-recipe-edit',
@@ -6,10 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./recipe-edit.component.css']
 })
 export class RecipeEditComponent implements OnInit {
+  @ViewChild('f') form: NgForm | undefined;
+  inputs: string[] = [];
+
 
   constructor() { }
 
   ngOnInit(): void {
   }
+
+
+
+
+
 
 }
