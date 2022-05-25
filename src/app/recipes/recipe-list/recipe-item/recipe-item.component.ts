@@ -9,12 +9,9 @@ import {RecipeService} from "../../../services/recipe.service";
 })
 export class RecipeItemComponent implements OnInit {
   @Input() recipeItem: Recipe | undefined;
-  constructor(private recipeService: RecipeService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
 
-  onRecipeClick(recipe: Recipe | undefined) {
-    this.recipeService.itemEventClick.emit(recipe);
-  }
 }

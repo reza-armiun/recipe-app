@@ -2,11 +2,15 @@ import {Ingredient} from "../shared/ingredient.model";
 
 export class Recipe {
 
-  constructor(private _name: string
+  constructor(private _id: number, private _name: string
               , private _description: string
               , private _imagePath: string, private _ingredients: Ingredient[]) {
   }
 
+
+  get id(): number {
+    return this._id;
+  }
 
   get name(): string {
     return this._name;

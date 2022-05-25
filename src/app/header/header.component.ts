@@ -6,13 +6,10 @@ import {PAGES} from "../app.component";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  @Output() selectPage = new EventEmitter<String>();
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  showPage(page: string) {
-    this.selectPage.emit(page);
-  }
+
 }

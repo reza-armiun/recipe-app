@@ -14,7 +14,5 @@ export class AppComponent {
   title = 'angular-sample';
   page: String = PAGES.RECIPE;
 
-  showPage(page: String) {
-      this.page = page;
-  }
+
 }
